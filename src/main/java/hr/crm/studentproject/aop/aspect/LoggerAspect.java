@@ -24,9 +24,11 @@ public class LoggerAspect {
 
 	@Before("hr.crm.studentproject.aop.config.CommonJoinPointConfig.serviceLayerExecution()")
 	public void before(JoinPoint joinPoint) {
-		logger.info(" ----------------------- Before --------------------- ");
-		logger.info(joinPoint.getSignature().getName() + " called with " + Arrays.toString(joinPoint.getArgs()));
-		logger.info(" ----------------------------------------------------- ");
+		if(loggerAspectEnabled) {
+			logger.info(" ----------------------- Before --------------------- ");
+			logger.info(joinPoint.getSignature().getName() + " called with " + Arrays.toString(joinPoint.getArgs()));
+			logger.info(" ----------------------------------------------------- ");
+		}
 	}
 	
 	@Around("@annotation(hr.crm.studentproject.aop.annotation.LogExecutionTime)")
