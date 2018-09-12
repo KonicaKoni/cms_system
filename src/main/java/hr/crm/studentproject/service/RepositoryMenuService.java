@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import hr.crm.studentproject.aop.annotation.LogExecutionTime;
 import hr.crm.studentproject.exception.MenuNotFoundException;
 import hr.crm.studentproject.model.Menu;
 import hr.crm.studentproject.repository.MenuRepository;
@@ -23,6 +24,7 @@ public class RepositoryMenuService implements MenuService {
 	}
 
 	@Override
+	@LogExecutionTime
 	public List<Menu> getAll() {
 		return menuRepository.findAll();
 	}

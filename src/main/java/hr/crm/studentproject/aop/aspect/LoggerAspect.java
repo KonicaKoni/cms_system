@@ -25,26 +25,30 @@ public class LoggerAspect {
 	@Before("hr.crm.studentproject.aop.config.CommonJoinPointConfig.serviceLayerExecution()")
 	public void before(JoinPoint joinPoint) {
 		logger.info(" ----------------------- Before --------------------- ");
-		logger.info(joinPoint.getSignature().getName() + " called with ");
-		logger.info(Arrays.toString(joinPoint.getArgs()));
+		logger.info(joinPoint.getSignature().getName() + " called with " + Arrays.toString(joinPoint.getArgs()));
 		logger.info(" ----------------------------------------------------- ");
 	}
 	
 	@Around("@annotation(hr.crm.studentproject.aop.annotation.LogExecutionTime)")
 	public void logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		if (loggerAspectEnabled) {
+			logger.info(" ---------------------- LogExecutionTime ---------------------- ");
 			long start = System.currentTimeMillis();
 
 			long executionTime = System.currentTimeMillis() - start;
 
 			logger.info("{} executed in {} ms", joinPoint.getSignature(), executionTime);
+			logger.info(" ----------------------------------------------------- ");
 		}
 	}
 
 	@After(value = "hr.crm.studentproject.aop.config.CommonJoinPointConfig.serviceLayerExecution()")
 	public void after(JoinPoint joinPoint) {
-		if(loggerAspectEnabled)
-			logger.info("after execution of {}", joinPoint);
+		if(loggerAspectEnabled) {
+			logger.info(" ----------------------- After --------------------- ");
+			logger.info("execution of {}", joinPoint);
+			logger.info(" -----------------------------------------------------");
+		}
 	}
 
 }
